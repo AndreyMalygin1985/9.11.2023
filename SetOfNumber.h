@@ -29,7 +29,9 @@ public:
 		this->arr = temp;
 		sszz = index;
 	}
+
 	SetOfNumber() :SetOfNumber(0, nullptr) {}
+
 	SetOfNumber(const SetOfNumber& obj) : arr{ new uint32_t[obj.sszz] }, sszz{ obj.sszz } {
 		for (size_t i = 0; i < obj.sszz; i++)
 		{
@@ -47,10 +49,8 @@ public:
 	{
 		for (size_t i = 0; i < sszz; i++)
 		{
-			cout << arr[i] << ",";
+			cout << arr[i] << " ";
 		}
 	}
-
-
 };
 
