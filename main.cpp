@@ -14,9 +14,18 @@ int main()
 	x.show();
 	cout << endl;
 
-	x += 10;
+	SetOfNumber y=x += 15;
+	y.show();
+	cout << endl;
+
+	++x;
 	x.show();
 	cout << endl;
+
+	y++;
+	y.show();
+	cout << endl;
+
 
 	return 0;
 }

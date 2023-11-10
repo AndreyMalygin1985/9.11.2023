@@ -33,25 +33,20 @@ public:
 			cout << arr[i] << " ";
 		}
 	}
+	
+	SetOfNumber& operator+=(uint32_t value);			//добавление
 
-	//void increase(uint32_t sszz)
-	//{
-	//	uint32_t* temp = new uint32_t[sszz];
-	//	for (size_t i = 0; i < sszz; i++)
-	//	{
-	//		temp[i] = this->arr[i];
-	//	}
-	//	delete[] this->arr;
-	//	this->arr = temp;
-	//}
+	SetOfNumber& operator+=(const SetOfNumber& set);
+	
+	SetOfNumber& operator++();
+	SetOfNumber& operator++(int);
+
+	SetOfNumber& increment();
 
 	static const SetOfNumber add(const SetOfNumber& set, uint32_t value);	//множество + значение
-
+	
 	friend const SetOfNumber operator+(const SetOfNumber& set, uint32_t value);
 
-	friend const SetOfNumber operator+(uint32_t value, const SetOfNumber& set);
-
-	friend void operator+=(SetOfNumber& set, uint32_t value);
-	
+	friend const SetOfNumber operator+(uint32_t value, const SetOfNumber& set);	
 };
 
