@@ -5,7 +5,7 @@ SetOfNumber::SetOfNumber(unsigned int size, uint32_t* arr) : arr{ new uint32_t[s
 	int index{ 0 };
 	for (size_t i = 0; i < sszz; i++)
 	{
-		if (!has(arr[i], index))
+		if (has(arr[i] , index) == -1)
 		{
 			this->arr[index] = arr[i];
 			index++;
@@ -22,22 +22,22 @@ SetOfNumber::SetOfNumber(unsigned int size, uint32_t* arr) : arr{ new uint32_t[s
 	sszz = index;
 }
 
-bool SetOfNumber::has(uint32_t value, uint32_t limit) const
+uint32_t SetOfNumber::has(uint32_t value, uint32_t limit) const
 {
-	int32_t c_sszz = limit == -1 ? this->sszz : limit;
-	for (size_t i = 0; i < c_sszz; i++)
+	uint32_t c_sszz = limit == -1 ? this->sszz : limit;
+	for (uint32_t i = 0; i < c_sszz; i++)
 	{
 		if (arr[i] == value)
 		{
-			return true;
+			return i;
 		}
 	}
-	return false;
+	return -1;
 }
 
 SetOfNumber& SetOfNumber::operator+=(uint32_t value)
 {
-	if (has(value))
+	if (has(value) != -1)
 	{
 		return *this;
 	}
@@ -57,11 +57,42 @@ SetOfNumber& SetOfNumber::operator+=(const SetOfNumber& set)
 {
 	for (size_t i = 0; i < set.sszz; i++)
 	{
-		if (!this->has(set.arr[i]))
+		if (!this->has(set.arr[i]) == -1)
 		{
 			*this += set.arr[i];
 		}
 	}
+	return *this;
+}
+
+SetOfNumber& SetOfNumber::operator+(const SetOfNumber& set)
+{
+	*this += set;
+	return *this;
+}
+
+SetOfNumber& SetOfNumber::operator-=(uint32_t value)
+{
+	uint32_t index = has(value);
+	if (has(value) == -1)
+	{
+		return *this;
+	}
+
+	uint32_t* temp = new uint32_t[sszz - 1];
+	for (uint32_t i = 0; i < index; i++)
+	{
+		temp[i] = arr[i];
+	}
+	if (index != sszz-1) {
+		for (uint32_t i = index + 1; i < sszz; i++)
+		{
+			temp[i-1] = arr[i];
+		}
+	}
+	delete[] arr;
+	arr = temp;
+	sszz--;
 	return *this;
 }
 
@@ -87,7 +118,7 @@ SetOfNumber& SetOfNumber::increment()
 const SetOfNumber SetOfNumber::add(const SetOfNumber& set, uint32_t value)		//множество + значение
 {
 	{
-		if (!set.has(value))
+		if (set.has(value) == -1)
 		{
 			uint32_t* temp = new uint32_t[set.sszz + 1];
 			for (size_t i = 0; i < set.sszz; i++)

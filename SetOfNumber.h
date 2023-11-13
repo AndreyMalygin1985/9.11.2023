@@ -24,7 +24,7 @@ public:
 		delete[] arr;
 	}
 
-	bool has(uint32_t value, uint32_t limit = -1) const;
+	uint32_t has(uint32_t value, uint32_t limit = -1) const;		//наличие элемента во множестве
 
 	void show() const
 	{
@@ -34,19 +34,21 @@ public:
 		}
 	}
 	
-	SetOfNumber& operator+=(uint32_t value);			//добавление
-
-	SetOfNumber& operator+=(const SetOfNumber& set);
+	SetOfNumber& operator+=(uint32_t value);			//добавление множества к другому множеству
+	SetOfNumber& operator+=(const SetOfNumber& set);	//добавление множества к другому множеству
+	SetOfNumber& operator+(const SetOfNumber& set);	//
 	
-	SetOfNumber& operator++();
-	SetOfNumber& operator++(int);
+	SetOfNumber& operator-=(uint32_t value);			//вычетание множества к другому множеству
 
 	SetOfNumber& increment();
+	SetOfNumber& operator++();							//инкремент к каждому числу множества
+	SetOfNumber& operator++(int);						//инкремент к каждому числу множества
 
-	static const SetOfNumber add(const SetOfNumber& set, uint32_t value);	//множество + значение
+
+	static const SetOfNumber add(const SetOfNumber& set, uint32_t value);		//множество + значение
 	
-	friend const SetOfNumber operator+(const SetOfNumber& set, uint32_t value);
+	friend const SetOfNumber operator+(const SetOfNumber& set, uint32_t value);		//добавление элемента множество + элемент (без привязки к классу)
+	friend const SetOfNumber operator+(uint32_t value, const SetOfNumber& set);		//добавление элемента элемент +множество (без привязки к классу)
 
-	friend const SetOfNumber operator+(uint32_t value, const SetOfNumber& set);	
 };
 
