@@ -5,7 +5,7 @@ SetOfNumber::SetOfNumber(unsigned int size, uint32_t* arr) : arr{ new uint32_t[s
 	int index{ 0 };
 	for (size_t i = 0; i < sszz; i++)
 	{
-		if (has(arr[i] , index) == -1)
+		if (has(arr[i], index) == -1)
 		{
 			this->arr[index] = arr[i];
 			index++;
@@ -57,7 +57,7 @@ SetOfNumber& SetOfNumber::operator+=(const SetOfNumber& set)
 {
 	for (size_t i = 0; i < set.sszz; i++)
 	{
-		if (!this->has(set.arr[i]) == -1)
+		if (this->has(set.arr[i]) == -1)
 		{
 			*this += set.arr[i];
 		}
@@ -65,10 +65,25 @@ SetOfNumber& SetOfNumber::operator+=(const SetOfNumber& set)
 	return *this;
 }
 
-SetOfNumber& SetOfNumber::operator+(const SetOfNumber& set)
+const SetOfNumber& SetOfNumber::operator+(const SetOfNumber& set) const
 {
-	*this += set;
+	SetOfNumber temp = *this;
+	temp += set;
+	return temp;
+}
+
+SetOfNumber& SetOfNumber::operator++()
+{
+	for (size_t i = 0; i < sszz; i++)
+	{
+		arr[i]++;
+	}
 	return *this;
+}
+
+SetOfNumber& SetOfNumber::operator++(int)
+{
+	return (*this)++;
 }
 
 SetOfNumber& SetOfNumber::operator-=(uint32_t value)
@@ -84,10 +99,10 @@ SetOfNumber& SetOfNumber::operator-=(uint32_t value)
 	{
 		temp[i] = arr[i];
 	}
-	if (index != sszz-1) {
+	if (index != sszz - 1) {
 		for (uint32_t i = index + 1; i < sszz; i++)
 		{
-			temp[i-1] = arr[i];
+			temp[i - 1] = arr[i];
 		}
 	}
 	delete[] arr;
@@ -96,50 +111,25 @@ SetOfNumber& SetOfNumber::operator-=(uint32_t value)
 	return *this;
 }
 
-SetOfNumber& SetOfNumber::operator++()
+const SetOfNumber& SetOfNumber::operator-(uint32_t value) const
 {
-	return this->increment();
-}
-
-SetOfNumber& SetOfNumber::operator++(int)
-{
-	return this->increment();
-}
-
-SetOfNumber& SetOfNumber::increment()
-{
-	for (size_t i = 0; i < sszz; i++)
-	{
-		arr[i]++;
-	}
-	return *this;
-}
-
-const SetOfNumber SetOfNumber::add(const SetOfNumber& set, uint32_t value)		//множество + значение
-{
-	{
-		if (set.has(value) == -1)
-		{
-			uint32_t* temp = new uint32_t[set.sszz + 1];
-			for (size_t i = 0; i < set.sszz; i++)
-			{
-				temp[i] = set.arr[i];
-			}
-			temp[set.sszz] = value;
-			return SetOfNumber(set.sszz + 1, temp);
-		}
-		return set;
-	}
-	return SetOfNumber();
+	SetOfNumber temp = *this;
+	temp -= value;
+	return temp;
 }
 
 const SetOfNumber operator+(const SetOfNumber& set, uint32_t value)
 {
-	return SetOfNumber::add(set, value);
+	if (set.has(value) == -1)
+	{
+		SetOfNumber temp(set);
+		temp += value;
+		return temp;
+	}
+	return set;
 }
 
 const SetOfNumber operator+(uint32_t value, const SetOfNumber& set)
 {
-	return SetOfNumber::add(set, value);
+	return set + value;
 }
-

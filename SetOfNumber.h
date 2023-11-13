@@ -33,22 +33,20 @@ public:
 			cout << arr[i] << " ";
 		}
 	}
-	
-	SetOfNumber& operator+=(uint32_t value);			//добавление множества к другому множеству
-	SetOfNumber& operator+=(const SetOfNumber& set);	//добавление множества к другому множеству
-	SetOfNumber& operator+(const SetOfNumber& set);	//
-	
-	SetOfNumber& operator-=(uint32_t value);			//вычетание множества к другому множеству
 
-	SetOfNumber& increment();
+	SetOfNumber& operator+=(const SetOfNumber& set);			//добавление множества к другому множеству
+	const SetOfNumber& operator+(const SetOfNumber& set) const;		//	
+
 	SetOfNumber& operator++();							//инкремент к каждому числу множества
 	SetOfNumber& operator++(int);						//инкремент к каждому числу множества
 
+	SetOfNumber& operator-=(uint32_t value);				//вычетание из множества другого множества
+	const SetOfNumber& operator-(uint32_t value) const;		//удаление элемента из множества - элемент
 
-	static const SetOfNumber add(const SetOfNumber& set, uint32_t value);		//множество + значение
-	
+	SetOfNumber& operator+=(uint32_t value);			//добавление множества к другому множеству
 	friend const SetOfNumber operator+(const SetOfNumber& set, uint32_t value);		//добавление элемента множество + элемент (без привязки к классу)
 	friend const SetOfNumber operator+(uint32_t value, const SetOfNumber& set);		//добавление элемента элемент +множество (без привязки к классу)
+
 
 };
 
