@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<iostream>
 
 using namespace std;
@@ -7,6 +7,10 @@ class SetOfNumber
 {
 	uint32_t* arr;
 	uint32_t sszz;
+	void clear() {
+		delete[]arr;
+		arr = nullptr;
+	}
 public:
 
 	SetOfNumber(unsigned int size, uint32_t* arr);
@@ -14,39 +18,40 @@ public:
 	SetOfNumber() : SetOfNumber(0, nullptr) {}
 
 	SetOfNumber(const SetOfNumber& obj) : arr{ new uint32_t[obj.sszz] }, sszz{ obj.sszz } {
-		for (size_t i = 0; i < obj.sszz; i++)
-		{
+		for (size_t i = 0; i < obj.sszz; i++) {
 			arr[i] = obj.arr[i];
 		}
 	}
-	~SetOfNumber()
-	{
-		delete[] arr;
+	~SetOfNumber() {
+		clear();
 	}
 
-	uint32_t has(uint32_t value, uint32_t limit = -1) const;		//íàëè÷èå ýëåìåíòà âî ìíîæåñòâå
+	uint32_t has(uint32_t value, uint32_t limit = -1) const;		//Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° Ð²Ð¾ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ðµ
 
-	void show() const
-	{
-		for (size_t i = 0; i < sszz; i++)
-		{
+	void show() const {
+		for (size_t i = 0; i < sszz; i++) {
 			cout << arr[i] << " ";
 		}
 	}
 
-	SetOfNumber& operator+=(const SetOfNumber& set);			//äîáàâëåíèå ìíîæåñòâà ê äðóãîìó ìíîæåñòâó
-	const SetOfNumber& operator+(const SetOfNumber& set) const;		//	
+	SetOfNumber& operator+=(const SetOfNumber& set);			//Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð° Ðº Ð´Ñ€ÑƒÐ³Ð¾Ð¼Ñƒ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ñƒ
+	const SetOfNumber operator+(const SetOfNumber& set) const;		//	
 
-	SetOfNumber& operator++();							//èíêðåìåíò ê êàæäîìó ÷èñëó ìíîæåñòâà
-	SetOfNumber& operator++(int);						//èíêðåìåíò ê êàæäîìó ÷èñëó ìíîæåñòâà
+	SetOfNumber& operator++();							//Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚ Ðº ÐºÐ°Ð¶Ð´Ð¾Ð¼Ñƒ Ñ‡Ð¸ÑÐ»Ñƒ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð°
+	const SetOfNumber operator++(int);						//Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚ Ðº ÐºÐ°Ð¶Ð´Ð¾Ð¼Ñƒ Ñ‡Ð¸ÑÐ»Ñƒ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð°
+	SetOfNumber& operator--();
+	const SetOfNumber operator--(int);
 
-	SetOfNumber& operator-=(uint32_t value);				//âû÷åòàíèå èç ìíîæåñòâà äðóãîãî ìíîæåñòâà
-	const SetOfNumber& operator-(uint32_t value) const;		//óäàëåíèå ýëåìåíòà èç ìíîæåñòâà - ýëåìåíò
+	SetOfNumber& operator-=(uint32_t value);				//Ð²Ñ‹Ñ‡ÐµÑ‚Ð°Ð½Ð¸Ðµ Ð¸Ð· Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð° Ð´Ñ€ÑƒÐ³Ð¾Ð³Ð¾ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð°
+	const SetOfNumber operator-(uint32_t value) const;		//ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° Ð¸Ð· Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð° - ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚
 
-	SetOfNumber& operator+=(uint32_t value);			//äîáàâëåíèå ìíîæåñòâà ê äðóãîìó ìíîæåñòâó
-	friend const SetOfNumber operator+(const SetOfNumber& set, uint32_t value);		//äîáàâëåíèå ýëåìåíòà ìíîæåñòâî + ýëåìåíò (áåç ïðèâÿçêè ê êëàññó)
-	friend const SetOfNumber operator+(uint32_t value, const SetOfNumber& set);		//äîáàâëåíèå ýëåìåíòà ýëåìåíò +ìíîæåñòâî (áåç ïðèâÿçêè ê êëàññó)
+	SetOfNumber& operator+=(uint32_t value);			//Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð° Ðº Ð´Ñ€ÑƒÐ³Ð¾Ð¼Ñƒ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ñƒ
+	friend const SetOfNumber operator+(const SetOfNumber& set, uint32_t value);		//Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð¾ + ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ (Ð±ÐµÐ· Ð¿Ñ€Ð¸Ð²ÑÐ·ÐºÐ¸ Ðº ÐºÐ»Ð°ÑÑÑƒ)
+	friend const SetOfNumber operator+(uint32_t value, const SetOfNumber& set);		//Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ +Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð¾ (Ð±ÐµÐ· Ð¿Ñ€Ð¸Ð²ÑÐ·ÐºÐ¸ Ðº ÐºÐ»Ð°ÑÑÑƒ)
 
+	friend ostream& operator<< (ostream& out, const SetOfNumber& set);
+	friend istream& operator>> (istream& out, SetOfNumber& set);
 
+	SetOfNumber& operator= (const SetOfNumber& name);
 };
 

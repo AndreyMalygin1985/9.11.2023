@@ -1,9 +1,8 @@
-#include<iostream>
+﻿#include<iostream>
 #include<Windows.h>
 #include"SetOfNumber.h"
 
 using namespace std;
-//https://github.com/OdegovTop/Sets/tree/master/Sets
 
 int main()
 {
@@ -50,14 +49,13 @@ int main()
 	zx.show();
 	cout << endl;
 
-	SetOfNumber yz = zx -200;
-	//cout << "\t|zxy|" << endl;
-	yz.show();
-	cout << endl;
-
-
-
-
+	{
+		SetOfNumber yz = zx - 200;
+		cout << zx << std::endl;
+		cout << yz << std::endl;
+		zx = yz;
+	}
+	cout << zx << std::endl;
 
 	return 0;
 }
